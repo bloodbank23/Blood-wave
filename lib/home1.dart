@@ -7,6 +7,8 @@ void main() {
 class MyHome extends StatelessWidget {
   const MyHome({super.key});
 
+  get body => null;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,22 +17,12 @@ class MyHome extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white70,
       ),
       home: Scaffold(
-        backgroundColor: Colors.white70,
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text('Home', style: TextStyle(fontSize: 30)),
-          backgroundColor: const Color(0xff191970),
-          elevation: 0.0,
-        ),
         body: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text("Search for a blood group!",
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold)),
                 const SizedBox(
                   height: 20,
                 ),
@@ -40,14 +32,68 @@ class MyHome extends StatelessWidget {
                     filled: true,
                     fillColor: const Color(0xff191970),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(10.0),
                       borderSide: BorderSide.none,
                     ),
-                    hintText: "A+",
+                    hintText: "Search for person details.",
                     suffixIcon: const Icon(Icons.search),
                     suffixIconColor: Colors.white,
                   ),
-                )
+                ),
+                const SizedBox(height: 20),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    const SizedBox(width: 50),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff191970)),
+                      child: const Text('A+'),
+                    ),
+                    ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff191970)),
+                        child: const Text('B+')),
+                    ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff191970)),
+                        child: const Text('A-')),
+                    ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff191970)),
+                        child: const Text('B-')),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const SizedBox(width: 50),
+                    ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff191970)),
+                      child: const Text('O+'),
+                    ),
+                    ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff191970)),
+                        child: const Text('O-')),
+                    ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff191970)),
+                        child: const Text('AB+')),
+                    ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff191970)),
+                        child: const Text('AB-')),
+                  ],
+                ),
               ],
             )),
       ),
