@@ -1,40 +1,61 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
+class SMSPage extends StatefulWidget {
+  const SMSPage({super.key});
+  @override
+  State<SMSPage> createState() => _SMSPageState();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+final TextEditingController _phoneNumberController = TextEditingController();
+final TextEditingController _messageController = TextEditingController();
 
-  // This widget is the root of your application.
+class _SMSPageState extends State<SMSPage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-          child: Text(
-        "NO ALERTS!",
-        style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-            color: Color.fromARGB(255, 10, 0, 0)),
-      )),
-    );
-  }
-
-  AppBar newMethod(BuildContext context) {
-    return AppBar(
-      backgroundColor: const Color(0xff191970),
-      centerTitle: true,
-      leading: BackButton(onPressed: () {
-        Navigator.pop(context);
-      }),
-      title: const Text(
-        "ALERTS",
-        style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-            backgroundColor: Colors.black),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Send SMS'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              TextFormField(
+                controller: _phoneNumberController,
+                decoration: const InputDecoration(
+                  labelText: 'Phone Number',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a phone number';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16.0),
+              TextFormField(
+                controller: _messageController,
+                decoration: const InputDecoration(
+                  labelText: 'Message',
+                ),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a message';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {},
+                child: const Text('Press Me'),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

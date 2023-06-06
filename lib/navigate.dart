@@ -20,7 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static final List<Widget> _widgetoptions = <Widget>[
     const MyHome(),
     const AddNew(),
-    const MyApp(),
+    const SMSPage(),
     const ProfileScreen(),
   ];
   void _onitemtapped(int index) {

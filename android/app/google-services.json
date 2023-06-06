@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "119691356507",
+    "project_id": "bloodwave-d2390",
+    "storage_bucket": "bloodwave-d2390.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119691356507:android:e876c28e94bef427a9127e",
+        "android_client_info": {
+          "package_name": "com.example.noell"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "119691356507-gkhqqr58kn9s7aapuo7quff6h8j74mkr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_oxtyEJM4QcvrHmr0PHW1DLMTCFsEfSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119691356507-gkhqqr58kn9s7aapuo7quff6h8j74mkr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
