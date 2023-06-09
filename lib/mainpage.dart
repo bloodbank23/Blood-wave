@@ -15,7 +15,9 @@ class MainPage extends StatelessWidget {
           if (snapshot.hasData) {
             return const HomePage();
           } else {
-            return const LoginScreen();
+            return LoginScreen(
+              showRegisterPage: () {},
+            );
           }
         },
       ),

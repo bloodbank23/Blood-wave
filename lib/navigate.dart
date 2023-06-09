@@ -1,5 +1,5 @@
-import 'package:bloodwave/add.dart';
 import 'package:bloodwave/home1.dart';
+import 'package:bloodwave/userpage.dart';
 import 'package:flutter/material.dart';
 import 'package:bloodwave/alerts.dart';
 import 'package:bloodwave/profile.dart';
@@ -18,9 +18,9 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
   static final List<Widget> _widgetoptions = <Widget>[
-    const MyHome(),
-    const AddNew(),
-    const SMSPage(),
+    MyHome(),
+    UserPage(),
+    const MyApp(),
     const ProfileScreen(),
   ];
   void _onitemtapped(int index) {

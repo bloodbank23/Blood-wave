@@ -41,7 +41,9 @@ class _MyHeaderState extends State<MyHeader> {
             leading: const Icon(Icons.logout),
             onTap: () => Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => const LoginScreen(),
+                builder: (context) => LoginScreen(
+                  showRegisterPage: () {},
+                ),
               ),
             ),
             title: const Text('LogOut'),

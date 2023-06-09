@@ -101,7 +101,9 @@ class _HomePageState extends State<HomePage> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
+                        builder: (context) => LoginScreen(
+                          showRegisterPage: () {},
+                        ),
                       ));
                 },
                 child: const Text(
