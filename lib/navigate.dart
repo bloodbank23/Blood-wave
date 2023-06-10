@@ -5,6 +5,8 @@ import 'package:bloodwave/alerts.dart';
 import 'package:bloodwave/profile.dart';
 import 'package:bloodwave/drawer.dart';
 
+import 'main.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -18,8 +20,8 @@ class _MyHomePageState extends State<MyHomePage> {
   int _currentIndex = 0;
 
   static final List<Widget> _widgetoptions = <Widget>[
-    MyHome(),
-    UserPage(),
+    const MyHome(),
+    const UserPage(),
     const MyApp(),
     const ProfileScreen(),
   ];
