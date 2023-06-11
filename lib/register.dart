@@ -1,14 +1,39 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bloodwave/navigate.dart';
 
 class MyRegister extends StatefulWidget {
-  const MyRegister({super.key});
+  const MyRegister({super.key, required void Function() showLoginPage});
 
   @override
   State<MyRegister> createState() => _MyRegisterState();
 }
 
 class _MyRegisterState extends State<MyRegister> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  Future<void> logIn() async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+      // Navigate to the desired page after successful login
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const MyHomePage(
+            title: 'Blood Wave',
+          ),
+        ),
+      );
+    } catch (error) {
+      // Handle login error
+      print('Login Error: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

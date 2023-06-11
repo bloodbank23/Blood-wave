@@ -19,9 +19,8 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> logIn() async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      );
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim());
       // Navigate to the desired page after successful login
       Navigator.push(
         context,
