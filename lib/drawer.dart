@@ -1,4 +1,5 @@
 import 'package:bloodwave/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyHeader extends StatefulWidget {
@@ -39,13 +40,16 @@ class _MyHeaderState extends State<MyHeader> {
           ),
           ListTile(
             leading: const Icon(Icons.logout),
-            onTap: () => Navigator.of(context).pushReplacement(
-              MaterialPageRoute(
-                builder: (context) => LoginScreen(
-                  showRegisterPage: () {},
+            onTap: () {
+              FirebaseAuth.instance.signOut();
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => LoginScreen(
+                    showRegisterPage: () {},
+                  ),
                 ),
-              ),
-            ),
+              );
+            },
             title: const Text('LogOut'),
           ),
         ],

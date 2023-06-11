@@ -1,4 +1,5 @@
 import 'package:bloodwave/home.dart';
+import 'package:bloodwave/home1.dart';
 import 'package:bloodwave/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +21,10 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> logIn() async {
     try {
-      UserCredential cred = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailController.text.trim(),
-          password: _passwordController.text.trim());
+      UserCredential cred = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: _emailController.text.trim(),
+              password: _passwordController.text.trim());
       Get.to(const HomePage());
     } catch (error) {
       // Handle login error
@@ -32,8 +34,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void loggedIn() {
     logIn();
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => StreamBuilder<User?>(stream: FirebaseAuth.instance.authStateChanges(),builder:(context, snapshot) {if (snapshot.hasData){return const HomePage();}else{return const LoginScreen(showRegisterPage: (){},)}}}))));
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return const MyHomePage(
+                title: 'Blood Wave',
+              );
+            } else {
+              return LoginScreen(
+                showRegisterPage: () {},
+              );
+            }
+          },
+          //}
+        ),
+      ),
+    );
   }
 
   @override
