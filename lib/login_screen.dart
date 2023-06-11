@@ -1,7 +1,9 @@
+import 'package:bloodwave/home.dart';
 import 'package:bloodwave/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bloodwave/navigate.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key, required Null Function() showRegisterPage})
@@ -21,19 +23,17 @@ class _LoginScreenState extends State<LoginScreen> {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim());
-      // Navigate to the desired page after successful login
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const MyHomePage(
-            title: 'Blood Wave',
-          ),
-        ),
-      );
+      Get.to(const HomePage());
     } catch (error) {
       // Handle login error
       print('Login Error: $error');
     }
+  }
+
+  void loggedIn() {
+    logIn();
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => StreamBuilder<User?>(stream: FirebaseAuth.instance.authStateChanges(),builder: (context, snapshot),)));
   }
 
   @override
@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             GestureDetector(
-                              onTap: logIn,
+                              onTap: loggedIn,
                               child: const Text(
                                 'Log in',
                                 style: TextStyle(

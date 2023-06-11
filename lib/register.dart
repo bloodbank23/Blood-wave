@@ -1,3 +1,5 @@
+import 'package:bloodwave/login_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bloodwave/navigate.dart';
@@ -12,22 +14,40 @@ class MyRegister extends StatefulWidget {
 class _MyRegisterState extends State<MyRegister> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _bloodController = TextEditingController();
+  final _mobileController = TextEditingController();
+  final _nameController = TextEditingController();
 
-  Future<void> logIn() async {
+  Future<void> signUp() async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
+      String email = _emailController.text.trim();
+      String password = _passwordController.text.trim();
+      String fullname = _nameController.text.trim();
+      String bloodgroup = _bloodController.text.trim();
+      String mobilenumber = _mobileController.text.trim();
+
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
       );
+      User? user = FirebaseAuth.instance.currentUser;
+      await FirebaseFirestore.instance
+          .collection("users")
+          .doc(user?.email)
+          .set({
+        'name': fullname,
+        'blood': bloodgroup,
+        'mobile': mobilenumber,
+        'email': email,
+        'password': password
+      });
       // Navigate to the desired page after successful login
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const MyHomePage(
-            title: 'Blood Wave',
-          ),
-        ),
-      );
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => LoginScreen(
+                    showRegisterPage: () {},
+                  )));
     } catch (error) {
       // Handle login error
       print('Login Error: $error');
@@ -66,6 +86,7 @@ class _MyRegisterState extends State<MyRegister> {
                   child: Column(
                     children: [
                       TextField(
+                        controller: _nameController,
                         style: const TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
@@ -86,6 +107,7 @@ class _MyRegisterState extends State<MyRegister> {
                         height: 15,
                       ),
                       TextField(
+                        controller: _bloodController,
                         style: const TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
@@ -106,6 +128,7 @@ class _MyRegisterState extends State<MyRegister> {
                         height: 15,
                       ),
                       TextField(
+                        controller: _mobileController,
                         style: const TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
@@ -126,6 +149,7 @@ class _MyRegisterState extends State<MyRegister> {
                         height: 15,
                       ),
                       TextField(
+                        controller: _emailController,
                         style: const TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                             focusedBorder: OutlineInputBorder(
@@ -146,6 +170,7 @@ class _MyRegisterState extends State<MyRegister> {
                         height: 15,
                       ),
                       TextField(
+                        controller: _passwordController,
                         style: const TextStyle(),
                         obscureText: true,
                         decoration: InputDecoration(
@@ -188,13 +213,7 @@ class _MyRegisterState extends State<MyRegister> {
                             child: IconButton(
                                 color: Colors.black,
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const MyHomePage(
-                                                title: 'Blood Wave',
-                                              )));
+                                  signUp();
                                 },
                                 icon: const Icon(
                                   Icons.arrow_forward,
