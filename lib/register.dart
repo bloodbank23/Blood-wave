@@ -1,4 +1,5 @@
 import 'package:bloodwave/login_screen.dart';
+import 'package:bloodwave/splash.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,14 @@ class _MyRegisterState extends State<MyRegister> {
   final _bloodController = TextEditingController();
   final _mobileController = TextEditingController();
   final _nameController = TextEditingController();
+  void pointTo() {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => LoginScreen(
+                  showRegisterPage: () {},
+                )));
+  }
 
   Future<void> signUp() async {
     try {
@@ -41,19 +50,14 @@ class _MyRegisterState extends State<MyRegister> {
         'email': email,
         'password': password
       });
-      // Navigate to the desired page after successful login
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => LoginScreen(
-                    showRegisterPage: () {},
-                  )));
+      reg = 'success';
     } catch (error) {
-      // Handle login error
+      reg = 'not success';
       print('Login Error: $error');
     }
   }
 
+  String reg = 'not success';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -214,6 +218,9 @@ class _MyRegisterState extends State<MyRegister> {
                                 color: Colors.black,
                                 onPressed: () {
                                   signUp();
+                                  if (reg == 'success') {
+                                    return pointTo();
+                                  }
                                 },
                                 icon: const Icon(
                                   Icons.arrow_forward,
