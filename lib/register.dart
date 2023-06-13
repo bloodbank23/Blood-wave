@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:bloodwave/navigate.dart';
 
 class MyRegister extends StatefulWidget {
-  const MyRegister({super.key, required void Function() showLoginPage});
+  const MyRegister({Key? key, required void Function() showLoginPage})
+      : super(key: key);
 
   @override
   State<MyRegister> createState() => _MyRegisterState();
@@ -19,12 +20,7 @@ class _MyRegisterState extends State<MyRegister> {
   final _mobileController = TextEditingController();
   final _nameController = TextEditingController();
   void pointTo() {
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (context) => LoginScreen(
-                  showRegisterPage: () {},
-                )));
+    Navigator.pushReplacementNamed(context, 'login');
   }
 
   Future<void> signUp() async {

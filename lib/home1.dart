@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sms/flutter_sms.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:bloodwave/userpage.dart';
+import 'package:flutter/rendering.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({Key? key});
@@ -62,19 +63,22 @@ class _MyHomeState extends State<MyHome> {
     });
   }
 
-  void processSelectedUsers() {
-    // Example code for processing the selected users
-    for (int index in selectedUsers) {
+  void sendSMSNotifications() {
+    List<String> recipients = selectedUsers.map((index) {
       final userData = _filteredUsers[index].data() as Map<String, dynamic>?;
-      if (userData != null) {
-        final name = userData['name'] as String?;
-        final phoneNumber = userData['phoneNumber'] as String?;
-        final blood_group = userData['blood_group'] as String?;
+      return userData?['phoneNumber'] as String? ?? '';
+    }).toList();
 
-        // Process the selected user data
-        print('Selected User: $name, $phoneNumber, $blood_group');
-      }
-    }
+    String message = "This is a test message!";
+    _sendSMS(message, recipients);
+  }
+
+  void _sendSMS(String message, List<String> recipients) async {
+    String _result = await sendSMS(message: message, recipients: recipients)
+        .catchError((onError) {
+      print(onError);
+    });
+    print(_result);
   }
 
   void deleteSelectedUsers() {
@@ -105,13 +109,6 @@ class _MyHomeState extends State<MyHome> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Search for a blood group!",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
               const SizedBox(
                 height: 20,
               ),
@@ -178,7 +175,13 @@ class _MyHomeState extends State<MyHome> {
               ),
               const SizedBox(height: 20),
               Expanded(
-                child: ListView.builder(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 1.0,
+                  ),
                   itemCount: _filteredUsers.length,
                   itemBuilder: (ctx, index) {
                     final userData =
@@ -188,26 +191,40 @@ class _MyHomeState extends State<MyHome> {
                       final phoneNumber = userData['phoneNumber'] as String?;
                       final blood_group = userData['blood_group'] as String?;
 
-                      return ListTile(
-                        leading: Checkbox(
-                          value: selectedUsers.contains(index),
-                          onChanged: (value) {
-                            setState(() {
-                              if (value!) {
-                                selectedUsers.add(index);
-                              } else {
-                                selectedUsers.remove(index);
-                              }
-                            });
-                          },
-                        ),
-                        title: Text('Name: $name'),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Phone Number: $phoneNumber'),
-                            Text('Blood Group: $blood_group'),
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(8.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset: Offset(0, 3),
+                            ),
                           ],
+                        ),
+                        child: ListTile(
+                          leading: Checkbox(
+                            value: selectedUsers.contains(index),
+                            onChanged: (value) {
+                              setState(() {
+                                if (value!) {
+                                  selectedUsers.add(index);
+                                } else {
+                                  selectedUsers.remove(index);
+                                }
+                              });
+                            },
+                          ),
+                          title: Text('Name: $name'),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('Phone Number: $phoneNumber'),
+                              Text('Blood Group: $blood_group'),
+                            ],
+                          ),
                         ),
                       );
                     } else {
@@ -226,17 +243,19 @@ class _MyHomeState extends State<MyHome> {
               onPressed: toggleSelectAll,
               child: Icon(
                   selectAll ? Icons.check_box : Icons.check_box_outline_blank),
+              backgroundColor: const Color(0xff191970),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             FloatingActionButton(
-              onPressed: processSelectedUsers,
-              child: Text('Process'),
+              onPressed: sendSMSNotifications,
+              child: const Icon(Icons.sms),
+              backgroundColor: const Color(0xff191970),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             FloatingActionButton(
               onPressed: deleteSelectedUsers,
-              child: Icon(Icons.delete),
-              backgroundColor: Colors.red,
+              child: const Icon(Icons.delete),
+              backgroundColor: const Color(0xff191970),
             ),
           ],
         ),
