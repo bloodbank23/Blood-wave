@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield_new/datetime_picker_formfield.dart';
 
+import 'package:email_validator/email_validator.dart';
+
 //import 'mainpage.dart';
 
 class UserPage extends StatefulWidget {
@@ -18,7 +20,7 @@ class _UserPageState extends State<UserPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController dateOfBirthController = TextEditingController();
-  //final TextEditingController genderController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   final dateFormat = DateFormat('yyyy-MM-dd');
 
@@ -30,6 +32,7 @@ class _UserPageState extends State<UserPage> {
     final phoneNumber = phoneNumberController.text;
     final dateOfBirth = dateOfBirthController.text;
     final gender = selectedGender;
+    final email = emailController.text;
 
     try {
       await firestore.collection('users').add({
@@ -38,6 +41,7 @@ class _UserPageState extends State<UserPage> {
         'dateOfBirth': dateOfBirth,
         'gender': gender,
         'blood_group': selectedBloodGroup,
+        'email': email,
       });
 
       showDialog(
@@ -93,6 +97,17 @@ class _UserPageState extends State<UserPage> {
             TextField(
               controller: phoneNumberController,
               decoration: const InputDecoration(labelText: 'Phone Number'),
+            ),
+            TextFormField(
+              controller: emailController,
+              decoration: const InputDecoration(labelText: 'Email'),
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) {
+                if (value == null || !EmailValidator.validate(value)) {
+                  return 'Please enter a valid email.';
+                }
+                return null;
+              },
             ),
             DateTimeField(
               controller: dateOfBirthController,

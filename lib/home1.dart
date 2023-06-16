@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_sms/flutter_sms.dart';
+import 'package:mailer/mailer.dart';
+import 'package:mailer/smtp_server.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
 
@@ -63,24 +64,6 @@ class _MyHomeState extends State<MyHome> {
     });
   }
 
-  void sendSMSNotifications() {
-    List<String> recipients = selectedUsers.map((index) {
-      final userData = _filteredUsers[index].data() as Map<String, dynamic>?;
-      return userData?['phoneNumber'] as String? ?? '';
-    }).toList();
-
-    String message = "This is a test message!";
-    _sendSMS(message, recipients);
-  }
-
-  void _sendSMS(String message, List<String> recipients) async {
-    String _result = await sendSMS(message: message, recipients: recipients)
-        .catchError((onError) {
-      print(onError);
-    });
-    print(_result);
-  }
-
   void deleteSelectedUsers() {
     // Example code for deleting the selected users
     for (int index in selectedUsers) {
@@ -92,6 +75,32 @@ class _MyHomeState extends State<MyHome> {
 
     // Clear the selected users list after deletion
     selectedUsers.clear();
+  }
+
+  void sendEmails() async {
+    final username =
+        'mariajojo846@gmail.com'; // Replace with your email address
+    final password = '@Mar1a23'; // Replace with your email password
+
+    final smtpServer = gmail(username, password);
+
+    for (int index in selectedUsers) {
+      final userData = _filteredUsers[index].data() as Map<String, dynamic>;
+      final email = userData['email'] as String?;
+
+      final message = Message()
+        ..from = Address(username, 'Your Name')
+        ..recipients.add(email!)
+        ..subject = 'Your Subject'
+        ..text = 'Your Email Body';
+
+      try {
+        final sendReport = await send(message, smtpServer);
+        print('Message sent: ${sendReport.toString()}');
+      } catch (e) {
+        print('Error occurred while sending email: $e');
+      }
+    }
   }
 
   @override
@@ -189,7 +198,8 @@ class _MyHomeState extends State<MyHome> {
                     if (userData != null) {
                       final name = userData['name'] as String?;
                       final phoneNumber = userData['phoneNumber'] as String?;
-                      final blood_group = userData['blood_group'] as String?;
+                      final bloodGroup = userData['blood_group'] as String?;
+                      final email = userData['email'] as String?;
 
                       return Container(
                         decoration: BoxDecoration(
@@ -222,7 +232,8 @@ class _MyHomeState extends State<MyHome> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text('Phone Number: $phoneNumber'),
-                              Text('Blood Group: $blood_group'),
+                              Text('Blood Group: $bloodGroup'),
+                              Text('Email: $email'),
                             ],
                           ),
                         ),
@@ -241,15 +252,15 @@ class _MyHomeState extends State<MyHome> {
           children: [
             FloatingActionButton(
               onPressed: toggleSelectAll,
+              backgroundColor: const Color(0xff191970),
               child: Icon(
                   selectAll ? Icons.check_box : Icons.check_box_outline_blank),
-              backgroundColor: const Color(0xff191970),
             ),
             const SizedBox(height: 10),
             FloatingActionButton(
-              onPressed: sendSMSNotifications,
-              child: const Icon(Icons.sms),
+              onPressed: sendEmails,
               backgroundColor: const Color(0xff191970),
+              child: const Icon(Icons.email),
             ),
             const SizedBox(height: 10),
             FloatingActionButton(
