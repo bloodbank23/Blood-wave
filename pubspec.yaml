@@ -45,6 +45,9 @@ dependencies:
   flutter_sms: ^2.3.3
   email_validator: ^2.1.17
   mailer: ^6.0.1
+  fluttertoast: ^7.1.7
+  http: ^0.13.4
+  
   
   
 

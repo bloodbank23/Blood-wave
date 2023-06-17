@@ -1,7 +1,10 @@
+import 'package:bloodwave/webclient.dart';
 import 'package:flutter/material.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore: unnecessary_import
 import 'package:flutter/rendering.dart';
 
 class MyHome extends StatefulWidget {
@@ -12,6 +15,7 @@ class MyHome extends StatefulWidget {
 }
 
 class _MyHomeState extends State<MyHome> {
+  List<String> maillist = [];
   String? selectedBloodGroup;
   late QuerySnapshot _userSnapshot;
   List<DocumentSnapshot> _filteredUsers = [];
@@ -20,6 +24,7 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   void initState() {
+    maillist.add("prejithts102@gmail.com");
     super.initState();
     getUsers();
   }
@@ -251,14 +256,25 @@ class _MyHomeState extends State<MyHome> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             FloatingActionButton(
-              onPressed: toggleSelectAll,
+              onPressed: () async {
+                toggleSelectAll;
+              },
               backgroundColor: const Color(0xff191970),
               child: Icon(
                   selectAll ? Icons.check_box : Icons.check_box_outline_blank),
             ),
             const SizedBox(height: 10),
             FloatingActionButton(
-              onPressed: sendEmails,
+              onPressed: () async {
+                Fluttertoast.show();
+
+                sendEmails;
+
+                Map data = {"email": maillist, "data": "A+"};
+
+                final dynamic response = await WebClient.post(
+                    '/email/send/notification/htmlcontent', data);
+              },
               backgroundColor: const Color(0xff191970),
               child: const Icon(Icons.email),
             ),
