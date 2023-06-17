@@ -27,16 +27,8 @@ class _MyHeaderState extends State<MyHeader> {
                 accountEmail: Text("Email"),
               )),
           const ListTile(
-            leading: Icon(Icons.bloodtype),
-            title: Text(' Recent Donations '),
-          ),
-          const ListTile(
             leading: Icon(Icons.edit),
             title: Text(' Edit Profile '),
-          ),
-          const ListTile(
-            leading: Icon(Icons.settings),
-            title: Text(' Settings '),
           ),
           ListTile(
             leading: const Icon(Icons.logout),

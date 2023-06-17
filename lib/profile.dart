@@ -1,152 +1,63 @@
 import 'package:flutter/material.dart';
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
-
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
+class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-        child: ListView(
-          children: <Widget>[
-            nameTextField(),
-            const SizedBox(
-              height: 20,
+      backgroundColor: Color.fromARGB(255, 206, 206, 209),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            SizedBox(height: 40),
+            Text(
+              'About Blood Wave',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
-            orgTextField(),
-            const SizedBox(
-              height: 20,
+            SizedBox(height: 16),
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Text(
+                  'Blood Wave is an app that connects blood donors by notifying them about the need for a blood transfusion. It aims to streamline the process of finding blood donors and ensuring timely help for patients in critical conditions.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
             ),
-            emailTextField(),
-            const SizedBox(
-              height: 20,
+            SizedBox(height: 32),
+            Divider(height: 32, color: Colors.grey[400]),
+            Text(
+              'Contact Information',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
             ),
-            bloodTextField(),
-            const SizedBox(
-              height: 20,
-            ),
-            mobileTextField(),
-            const SizedBox(
-              height: 20,
+            SizedBox(height: 16),
+            Card(
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: ListTile(
+                leading: Icon(Icons.person),
+                title: Text(
+                  'Noell Micheal Biju',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                subtitle: Text(
+                  'noellbijumicheal@gmail.com',
+                  style: TextStyle(color: Colors.grey[700]),
+                ),
+              ),
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget nameTextField() {
-    return TextFormField(
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.black,
-        )),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.black,
-          width: 2,
-        )),
-        prefixIcon: Icon(
-          Icons.person,
-          color: Colors.black,
-        ),
-        labelText: "Name",
-        hintText: "abc",
-      ),
-    );
-  }
-
-  Widget orgTextField() {
-    return TextFormField(
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.black,
-        )),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.black,
-          width: 2,
-        )),
-        prefixIcon: Icon(
-          Icons.house,
-          color: Colors.black,
-        ),
-        labelText: "Organization",
-        hintText: "hospital",
-      ),
-    );
-  }
-
-  Widget emailTextField() {
-    return TextFormField(
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.black,
-        )),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.black,
-          width: 2,
-        )),
-        prefixIcon: Icon(
-          Icons.mail,
-          color: Colors.black,
-        ),
-        labelText: "Email",
-        hintText: "abc@gmail.com",
-      ),
-    );
-  }
-
-  Widget mobileTextField() {
-    return TextFormField(
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.black,
-        )),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.black,
-          width: 2,
-        )),
-        prefixIcon: Icon(
-          Icons.phone,
-          color: Colors.black,
-        ),
-        labelText: "Mobile",
-        hintText: "0091...",
-      ),
-    );
-  }
-
-  Widget bloodTextField() {
-    return TextFormField(
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.black,
-        )),
-        focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(
-          color: Colors.black,
-          width: 2,
-        )),
-        prefixIcon: Icon(
-          Icons.bloodtype,
-          color: Colors.black,
-        ),
-        labelText: "Units of Blood",
-        hintText: "abc",
       ),
     );
   }

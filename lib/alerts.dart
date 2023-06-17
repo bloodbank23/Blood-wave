@@ -1,5 +1,5 @@
 // ALERTS
-
+/*
 import 'package:flutter/material.dart';
 
 class SMSPage extends StatefulWidget {
@@ -61,4 +61,4 @@ class _SMSPageState extends State<SMSPage> {
       ),
     );
   }
-}
+}*/

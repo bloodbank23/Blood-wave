@@ -116,7 +116,7 @@ class _MyHomeState extends State<MyHome> {
         scaffoldBackgroundColor: Colors.white70,
       ),
       home: Scaffold(
-        backgroundColor: Colors.white70,
+        backgroundColor: Color.fromARGB(255, 206, 206, 209),
         body: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -266,7 +266,7 @@ class _MyHomeState extends State<MyHome> {
             const SizedBox(height: 10),
             FloatingActionButton(
               onPressed: () async {
-                Fluttertoast.show();
+                //  Fluttertoast.show();
 
                 sendEmails;
 

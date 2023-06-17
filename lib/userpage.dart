@@ -85,6 +85,7 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 206, 206, 209),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -200,10 +201,24 @@ class _UserPageState extends State<UserPage> {
                 return null;
               },
             ),
-            const SizedBox(height: 16.0),
+            const SizedBox(height: 24.0),
             ElevatedButton(
               onPressed: saveUserData,
-              child: const Text('Create'),
+              style: ElevatedButton.styleFrom(
+                primary: const Color(0xff191970),
+                onPrimary: Colors.white,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16.0,
+                  horizontal: 24.0,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              child: const Text(
+                'Create',
+                style: TextStyle(fontSize: 16.0),
+              ),
             ),
           ],
         ),
