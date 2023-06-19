@@ -75,8 +75,8 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Image.asset(
                   "android/assets/image/logologin.png",
-                  width: 330, // Adjust the width as needed
-                  height: 300, // Adjust the height as needed
+                  width: 300, // Adjust the width as needed
+                  height: 200, // Adjust the height as needed
                 ),
               ],
             ),
