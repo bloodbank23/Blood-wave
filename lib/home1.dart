@@ -4,8 +4,6 @@ import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-// ignore: unnecessary_import
-import 'package:flutter/rendering.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({Key? key});
@@ -189,57 +187,55 @@ class _MyHomeState extends State<MyHome> {
               ),
               const SizedBox(height: 20),
               Expanded(
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio: 1.0,
-                  ),
+                child: ListView.builder(
                   itemCount: _filteredUsers.length,
                   itemBuilder: (ctx, index) {
                     final userData =
                         _filteredUsers[index].data() as Map<String, dynamic>?;
                     if (userData != null) {
                       final name = userData['name'] as String?;
-                      final phoneNumber = userData['phoneNumber'] as String?;
+                      //final phoneNumber = userData['phoneNumber'] as String?;
                       final bloodGroup = userData['blood_group'] as String?;
                       final email = userData['email'] as String?;
 
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(8.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.3),
-                              spreadRadius: 2,
-                              blurRadius: 5,
-                              offset: Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: ListTile(
-                          leading: Checkbox(
-                            value: selectedUsers.contains(index),
-                            onChanged: (value) {
-                              setState(() {
-                                if (value!) {
-                                  selectedUsers.add(index);
-                                } else {
-                                  selectedUsers.remove(index);
-                                }
-                              });
-                            },
-                          ),
-                          title: Text('Name: $name'),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Phone Number: $phoneNumber'),
-                              Text('Blood Group: $bloodGroup'),
-                              Text('Email: $email'),
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 10.0), // Add space between list items
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(8.0),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 2,
+                                blurRadius: 5,
+                                offset: Offset(0, 3),
+                              ),
                             ],
+                          ),
+                          child: ListTile(
+                            leading: Checkbox(
+                              value: selectedUsers.contains(index),
+                              onChanged: (value) {
+                                setState(() {
+                                  if (value!) {
+                                    selectedUsers.add(index);
+                                  } else {
+                                    selectedUsers.remove(index);
+                                  }
+                                });
+                              },
+                            ),
+                            title: Text('Name: $name'),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Text('Phone Number: $phoneNumber'),
+                                Text('Blood Group: $bloodGroup'),
+                                Text('Email: $email'),
+                              ],
+                            ),
                           ),
                         ),
                       );
@@ -257,7 +253,7 @@ class _MyHomeState extends State<MyHome> {
           children: [
             FloatingActionButton(
               onPressed: () async {
-                toggleSelectAll;
+                toggleSelectAll();
               },
               backgroundColor: const Color(0xff191970),
               child: Icon(
@@ -268,7 +264,7 @@ class _MyHomeState extends State<MyHome> {
               onPressed: () async {
                 //  Fluttertoast.show();
 
-                sendEmails;
+                sendEmails();
 
                 Map data = {"email": maillist, "data": "A+"};
 

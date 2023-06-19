@@ -41,26 +41,21 @@ class _MyHomePageState extends State<MyHomePage> {
         child: _widgetoptions[_currentIndex],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xff191970),
+        backgroundColor: const Color(0xff191970),
         currentIndex: _currentIndex,
         iconSize: 30,
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.home),
-              backgroundColor: Color.fromARGB(255, 255, 255, 255),
+              backgroundColor: Color(0xff191970),
               label: "home"),
           BottomNavigationBarItem(
               icon: Icon(Icons.add),
-              backgroundColor: Color.fromARGB(255, 255, 255, 255),
+              backgroundColor: Color(0xff191970),
               label: "add"),
-          /* BottomNavigationBarItem(
-            icon: Icon(Icons.notification_add),
-            backgroundColor: Color(0xff191970),
-            label: "alerts",
-          ),*/
           BottomNavigationBarItem(
               icon: Icon(Icons.person),
-              backgroundColor: Color.fromARGB(255, 255, 255, 255),
+              backgroundColor: Color(0xff191970),
               label: "profile"),
         ],
         onTap: _onitemtapped,

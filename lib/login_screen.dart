@@ -1,6 +1,7 @@
 import 'package:bloodwave/home.dart';
 import 'package:bloodwave/home1.dart';
 import 'package:bloodwave/register.dart';
+import 'package:bloodwave/reset.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:bloodwave/navigate.dart';
@@ -68,16 +69,16 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: const Color(0xff191970),
       body: Stack(
         children: [
-          Container(),
           Container(
             padding: const EdgeInsets.only(left: 35, top: 150),
-            child: const Text(
-              'Welcome Back!',
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 33,
-                fontWeight: FontWeight.w700,
-              ),
+            child: Column(
+              children: [
+                Image.asset(
+                  "android/assets/image/logologin.png",
+                  width: 330, // Adjust the width as needed
+                  height: 300, // Adjust the height as needed
+                ),
+              ],
             ),
           ),
           SingleChildScrollView(
@@ -88,9 +89,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(left: 35, right: 35),
-                    child: Column(
-                      children: [
+                      margin: const EdgeInsets.only(left: 35, right: 35),
+                      child: Column(children: [
                         TextField(
                           controller: _emailController,
                           style: const TextStyle(color: Colors.black),
@@ -127,88 +127,91 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 40,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             GestureDetector(
                               onTap: loggedIn,
-                              child: const Text(
-                                'Log in',
-                                style: TextStyle(
-                                    color: Colors.white70,
-                                    fontSize: 27,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                            CircleAvatar(
-                              radius: 30,
-                              backgroundColor: Colors.white70,
-                              child: IconButton(
-                                color: Colors.black,
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const MyHomePage(
-                                        title: 'Blood Wave',
-                                      ),
-                                    ),
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_forward,
+                              child: ElevatedButton(
+                                onPressed: loggedIn,
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white70,
+                                  disabledBackgroundColor: Colors.black,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Log in',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                         const SizedBox(
                           height: 40,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MyRegister(
-                                      showLoginPage: () {},
-                                    ),
+                        /*Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MyRegister(
+                                    showLoginPage: () {},
                                   ),
-                                );
-                              },
-                              style: ButtonStyle(
-                                overlayColor: MaterialStateProperty.all(
-                                    Colors.transparent),
-                              ),
-                              child: const Text(
-                                'Sign up',
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    fontSize: 20,
-                                    color: Colors.white70),
-                              ),
+                                ),
+                              );
+                            },
+                            style: ButtonStyle(
+                              overlayColor:
+                                  MaterialStateProperty.all(Colors.transparent),
                             ),
-                            TextButton(
-                              onPressed: () {
-                                // Handle forgot password
-                              },
-                              child: const Text(
-                                'Forgot Password?',
-                                style: TextStyle(
+                            child: const Text(
+                              'Sign up',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
                                   decoration: TextDecoration.underline,
-                                  color: Colors.white70,
                                   fontSize: 20,
+                                  color: Colors.white70),
+                            ),
+                          ),*/
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Center(
+                              child: TextButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const ResetPasswordPage(),
+                                    ),
+                                  );
+                                  // Handle forgot password
+                                },
+                                child: const Text(
+                                  'Forgot Password?',
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.white70,
+                                    fontSize: 20,
+                                  ),
                                 ),
                               ),
                             ),
                           ],
                         )
-                      ],
-                    ),
-                  )
+                      ]))
                 ],
               ),
             ),
