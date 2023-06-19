@@ -21,10 +21,10 @@ class _MyHeaderState extends State<MyHeader> {
               child: UserAccountsDrawerHeader(
                 decoration: BoxDecoration(color: Color(0xff191970)),
                 accountName: Text(
-                  "Name",
+                  "Coral Isle Hospital",
                   style: TextStyle(fontSize: 18),
                 ),
-                accountEmail: Text("Email"),
+                accountEmail: Text("coralislehospital@gmail.com"),
               )),
           const ListTile(
             leading: Icon(Icons.edit),

@@ -29,6 +29,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xff191970),
       appBar: AppBar(
         backgroundColor: const Color(0xff191970),
         title: const Text('Reset Password'),
@@ -40,32 +41,65 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           children: [
             const Text(
               'Enter your new password:',
-              style: TextStyle(fontSize: 16.0),
+              style: TextStyle(fontSize: 16.0, color: Colors.white),
             ),
             const SizedBox(height: 16.0),
             TextField(
               controller: newPasswordController,
+              style: const TextStyle(
+                color: Colors.white,
+              ), // Set the text color to white
               decoration: const InputDecoration(
+                fillColor: Colors.white70,
+                filled: true,
                 labelText: 'New Password',
-                border: OutlineInputBorder(),
+                labelStyle: TextStyle(
+                  color: Colors.black,
+                ), // Set the label text color to white
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.black, // Set the border color to white
+                  ),
+                ),
               ),
               obscureText: true,
             ),
             const SizedBox(height: 16.0),
             TextField(
               controller: confirmPasswordController,
+              style: const TextStyle(
+                color: Colors.white,
+              ), // Set the text color to white
               decoration: const InputDecoration(
+                fillColor: Colors.white70,
+                filled: true,
                 labelText: 'Confirm Password',
-                border: OutlineInputBorder(),
+                labelStyle: TextStyle(
+                  color: Colors.black,
+                ), // Set the label text color to white
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Colors.white, // Set the border color to white
+                  ),
+                ),
               ),
               obscureText: true,
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: resetPassword,
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff191970)),
-              child: const Text('Reset Password'),
+            Center(
+              child: ElevatedButton(
+                onPressed: resetPassword,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white70,
+                  primary: Colors.black, // Set the text color to black
+                ),
+                child: const Text(
+                  'Reset Password',
+                  style: TextStyle(
+                    color: Colors.black, // Set the text color to black
+                  ),
+                ),
+              ),
             ),
           ],
         ),
